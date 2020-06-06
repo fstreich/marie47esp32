@@ -35,7 +35,7 @@ classifiers = [
 
 entry_points={
     'console_scripts': [
-        'marie47esp32=marie47esp32:main',
+        'marie47esp32server=marie47esp32:main',
     ],
 }
 
