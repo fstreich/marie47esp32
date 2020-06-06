@@ -10,7 +10,8 @@ class Config(object):
     configdict = dict()
     
     config = {
-        "webserverport" : { "default": "80", "type": "int", "label":"", "showgui":"false", "order": 0}
+        "webserverport" : { "default": "80", "type": "int", "label":"", "showgui":"false", "order": 0},
+        "udpserverport" : { "default": "5005", "type": "int", "label":"", "showgui":"false", "order": 0}
     }
     
     def __init__(self):

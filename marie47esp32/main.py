@@ -7,6 +7,7 @@ import math
 import traceback
 import threading
 import json
+import socket
 
 from datetime import datetime
 from datetime import timedelta
@@ -14,7 +15,8 @@ from datetime import timedelta
 from marie47esp32.webserver.webserver import WebServer
 from marie47esp32.util.log import log
 from marie47esp32.util.config import Config
-#
+from marie47esp32.udp.udpserver import UdpServer
+
 import asyncio
 import tornado.web
 import tornado.websocket
@@ -46,11 +48,16 @@ def main():
     t.daemon = True
     t.start()
 
-
+    UDP_PORT = config.getInt("udpserverport")
+    
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+    sock.bind(('', UDP_PORT)) # specify UDP_IP or INADDR_ANY
+    MESSAGE = b"Hello, World!"
+    
     while(True):
         try:
-          time.sleep(1000)
-          log.error('still alive '+configpath)
+            udpdata, addr = sock.recvfrom(4096) # buffer size is 1024 bytes
+            UdpServer.handle_udp_paket(udpdata, addr, sock)
         except Exception as e:
             log.warn('main: an exception occured! ignoring!')
             traceback.print_exc()
