@@ -10,6 +10,8 @@ export class ThumbnailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  	console.log("Hello from thumbnail!")
   }
 
 }
+

@@ -8,4 +8,5 @@ import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 })
 export class AppComponent {
   title = 'blinkfinity';
+  installation = 'Kaleidoscope'
 }
