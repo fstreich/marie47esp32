@@ -50,14 +50,14 @@ def main():
 
     UDP_PORT = config.getInt("udpserverport")
     
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-    sock.bind(('', UDP_PORT)) # specify UDP_IP or INADDR_ANY
+    UdpServer.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+    UdpServer.sock.bind(('', UDP_PORT)) # specify UDP_IP or INADDR_ANY
     MESSAGE = b"Hello, World!"
     
     while(True):
         try:
-            udpdata, addr = sock.recvfrom(4096) # buffer size is 1024 bytes
-            UdpServer.handle_udp_paket(udpdata, addr, sock)
+            udpdata, addr = UdpServer.sock.recvfrom(4096) # buffer size is 1024 bytes
+            UdpServer.handle_udp_paket(udpdata, addr)
         except Exception as e:
             log.warn('main: an exception occured! ignoring!')
             traceback.print_exc()
