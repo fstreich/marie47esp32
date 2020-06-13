@@ -7,12 +7,16 @@ import { AppComponent } from './app.component';
 import { ProgramComponent } from './program/program.component';
 import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 import { BASE_PATH } from './swagger/variables';
+import { EditProgramComponent } from './edit-program/edit-program.component';
+import { HomeScreenComponent } from './home-screen/home-screen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProgramComponent,
-    ThumbnailComponent
+    ThumbnailComponent,
+    EditProgramComponent,
+    HomeScreenComponent
   ],
   imports: [
     BrowserModule,

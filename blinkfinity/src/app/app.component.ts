@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThumbnailComponent } from './thumbnail/thumbnail.component';
+
 
 @Component({
   selector: 'app-root',
