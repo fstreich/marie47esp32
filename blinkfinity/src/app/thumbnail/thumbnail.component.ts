@@ -1,17 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-thumbnail',
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.css']
 })
-export class ThumbnailComponent implements OnInit {
+export class ThumbnailComponent implements AfterViewInit {
+
+  @ViewChild('myCanvas', {static: false}) myCanvas;
+  @Input() number: number;
+
+
+  public context : CanvasRenderingContext2D;
 
   constructor() { }
 
-  ngOnInit(): void {
-  	console.log("Hello from thumbnail!")
+  ngAfterViewInit(): void {
+  	// let canvas = this.myCanvas;
+  	// console.log("canvas:",canvas);
+
+  	console.log()
+
+    let canvas = this.myCanvas.nativeElement;
+
+    this.context = canvas.getContext('2d');
+    this.context.font = "30px Arial";
+	this.context.strokeText(""+this.number,30,60);
   }
 
 }
-
