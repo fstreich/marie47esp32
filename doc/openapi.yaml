@@ -26,13 +26,13 @@ paths:
 
   '/program/{id}':
     get:
-      summary: get program
+      summary: get program from slot
       tags:
         - Program
       parameters:
         - name: id
           in: path
-          description: ID of Program 
+          description: Slot ID of Program 
           required: true
           schema:
             type: integer
@@ -46,9 +46,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/program'
-  
-  /program:
     post:
+      summary: set program for slot
+      parameters:
+        - name: id
+          in: path
+          description: Slot ID of Program
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         description: program
         required: true
@@ -67,6 +74,28 @@ paths:
                 $ref: '#/components/schemas/program'
         default:
           $ref: '#/components/responses/Unexpected'
+  /edit:
+    post:
+      summary: set program in edit slot and play until exit edit mode
+      requestBody:
+        description: program
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/program'
+      tags:
+        - Program
+      responses:
+        '201':
+          description: Program Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/program'
+        default:
+          $ref: '#/components/responses/Unexpected'
+  /endedit:
     get:
       summary: List of all program
       tags:
@@ -80,7 +109,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/program'
-
+  
   
                 
 components:
