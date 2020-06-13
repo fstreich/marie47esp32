@@ -1,0 +1,232 @@
+openapi: 3.0.1
+info:
+  description: ESP WS2812b Infinity Mirror Protocol
+  version: 0.0.1
+  title: ESP Infinity
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    name: tentable
+    email: yy@xxx.de
+  license:
+    name: Lizenz ???
+    url: 'http://'
+servers:
+  - url: 'http://localhost:{port}/{basePath}'
+    variables:
+      port:
+        enum:
+          - '8080'
+          - '443'
+        default: '8080'
+      basePath:
+        default: api
+    description: local test server
+
+paths:
+
+  '/program/{id}':
+    get:
+      summary: get program
+      tags:
+        - Program
+      parameters:
+        - name: id
+          in: path
+          description: ID of Program 
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'get program'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/program'
+  
+  /program:
+    post:
+      requestBody:
+        description: program
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/program'
+      tags:
+        - Program
+      responses:
+        '201':
+          description: Program Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/program'
+        default:
+          $ref: '#/components/responses/Unexpected'
+    get:
+      summary: List of all program
+      tags:
+        - Program
+      responses:
+        '200':
+          description: 'get list of all program '
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/program'
+
+  
+                
+components:
+  schemas:
+    message:
+      type: object
+      properties:
+        id:
+          type: integer
+        command:
+          type: string
+        program:
+          $ref: '#/components/schemas/program'
+        
+    
+    pattern:
+      type: object
+      properties:
+        class:
+          type: string
+        name:
+          type: string
+        speed:
+          type: integer
+        hmirror:
+          type: boolean
+        vmirror:
+          type: boolean
+        rotate:
+          type: integer
+        blender:
+          $ref: '#/components/schemas/blender'
+            
+    random_walk:
+      allOf:     # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/pattern'
+        - type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/color'
+
+    color:
+      type: object
+      properties:
+        class:
+          type: string
+          
+    colorsolid:
+      type: object
+      properties:
+        rgba:
+          type: string
+        
+    blender:
+      type: object
+      
+    program:
+      type: object
+      properties:
+        name:
+          type: string
+        patterns:
+          type: array
+          items:
+            $ref: '#/components/schemas/pattern'
+            
+        
+    
+          
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    
+    
+    
+  examples:
+    logbookExample:
+      value:
+        id: 1
+        name: new object
+        country: null
+        comment: ''
+        date: 'datestring ... '
+        logType: Travel
+        visibility: global
+      summary: A sample object
+  parameters:
+    skipParam:
+      name: skip
+      in: query
+      description: number of items to skip
+      required: true
+      schema:
+        type: integer
+        format: int32
+    limitParam:
+      name: limit
+      in: query
+      description: max records to return
+      required: true
+      schema:
+        type: integer
+        format: int32
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unexpected:
+      description: Unexpected
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    IllegalInput:
+      description: Illegal input for operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    GeneralError:
+      description: General Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+security:
+  - ApiKeyAuth: []
+  

@@ -15,8 +15,7 @@ import pkg_resources
 
 from marie47esp32.util.config import Config
 from marie47esp32.util.log import log
-
-
+from marie47esp32.udp.udpserver import UdpClient
 
 class WebServer(tornado.web.Application):
 
@@ -55,6 +54,7 @@ class WebServer(tornado.web.Application):
 class TestHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("test success")
+        UdpClient.sendto(1,b'\x46\x53\x01\x01\x00') ## type 1, id 1, ping
 
 
 class WebSocket(tornado.websocket.WebSocketHandler):

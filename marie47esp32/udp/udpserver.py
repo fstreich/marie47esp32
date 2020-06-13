@@ -51,6 +51,14 @@ class UdpClient(object):
 		client.lastseen = datetime.now()
 		return client
 		
+	def sendto(id, data):
+		client = None
+		for c in UdpClient.clients:
+			if c.id == id:
+				client = c
+				c.sendto(data)
+		return client
+	
 class UdpServer(object):
 	
 	sock = None
