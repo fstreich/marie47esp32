@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EditPatternComponent } from '../edit-pattern/edit-pattern.component';
 import { Pattern } from '../swagger/model/pattern';
+import { ProgramService } from '../swagger/api/program.service';
 
 @Component({
   selector: 'app-edit-program',
@@ -17,9 +18,14 @@ export class EditProgramComponent implements OnInit {
   	{ _class: "random walk", speed: 2},
   ];
 
-  constructor() { }
+  constructor(private programService: ProgramService) {
+  }
 
   ngOnInit(): void {
   }
 
+  cancel_edit() {
+  	console.log("cancel edit button pressed...");
+  	this.programService.endeditGet().subscribe();
+  }
 }

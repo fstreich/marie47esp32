@@ -56,15 +56,67 @@ export class ProgramService {
 
 
     /**
+     * set program in edit slot and play until exit edit mode
+     * 
+     * @param body program
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public editPost(body: Program, observe?: 'body', reportProgress?: boolean): Observable<Program>;
+    public editPost(body: Program, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Program>>;
+    public editPost(body: Program, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Program>>;
+    public editPost(body: Program, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling editPost.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (ApiKeyAuth) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["X-API-KEY"]) {
+            headers = headers.set('X-API-KEY', this.configuration.apiKeys["X-API-KEY"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<Program>('post',`${this.basePath}/edit`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * List of all program
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public programGet(observe?: 'body', reportProgress?: boolean): Observable<Array<Program>>;
-    public programGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Program>>>;
-    public programGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Program>>>;
-    public programGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public endeditGet(observe?: 'body', reportProgress?: boolean): Observable<Array<Program>>;
+    public endeditGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Program>>>;
+    public endeditGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Program>>>;
+    public endeditGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -86,7 +138,7 @@ export class ProgramService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<Program>>('get',`${this.basePath}/program`,
+        return this.httpClient.request<Array<Program>>('get',`${this.basePath}/endedit`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -97,9 +149,9 @@ export class ProgramService {
     }
 
     /**
-     * get program
+     * get program from slot
      * 
-     * @param id ID of Program
+     * @param id Slot ID of Program
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -143,19 +195,24 @@ export class ProgramService {
     }
 
     /**
-     * 
+     * set program for slot
      * 
      * @param body program
+     * @param id Slot ID of Program
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public programPost(body: Program, observe?: 'body', reportProgress?: boolean): Observable<Program>;
-    public programPost(body: Program, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Program>>;
-    public programPost(body: Program, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Program>>;
-    public programPost(body: Program, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public programIdPost(body: Program, id: number, observe?: 'body', reportProgress?: boolean): Observable<Program>;
+    public programIdPost(body: Program, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Program>>;
+    public programIdPost(body: Program, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Program>>;
+    public programIdPost(body: Program, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling programPost.');
+            throw new Error('Required parameter body was null or undefined when calling programIdPost.');
+        }
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling programIdPost.');
         }
 
         let headers = this.defaultHeaders;
@@ -183,7 +240,7 @@ export class ProgramService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<Program>('post',`${this.basePath}/program`,
+        return this.httpClient.request<Program>('post',`${this.basePath}/program/${encodeURIComponent(String(id))}`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

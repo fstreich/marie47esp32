@@ -9,6 +9,7 @@ import { BASE_PATH } from './swagger/variables';
 import { EditProgramComponent } from './edit-program/edit-program.component';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
 import { EditPatternComponent } from './edit-pattern/edit-pattern.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,8 @@ import { EditPatternComponent } from './edit-pattern/edit-pattern.component';
     EditPatternComponent
   ],
   imports: [
+  	ApiModule,
+  	HttpClientModule,
     BrowserModule,
     AppRoutingModule
   ],
