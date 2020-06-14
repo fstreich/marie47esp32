@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EditPatternComponent } from '../edit-pattern/edit-pattern.component';
+import { Pattern } from '../swagger/model/pattern';
 
 @Component({
   selector: 'app-edit-program',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProgramComponent implements OnInit {
 
-  possiblePatterns : string[] = [ 
-  	'stripes', 'stars', 'random walk'
-  ]
+  name : string = "unnamed program";
+
+  patterns : Pattern[] = [
+  	{ _class: "stars", speed: 8},
+  	{ _class: "stripes", speed: 2},
+  	{ _class: "random walk", speed: 2},
+  ];
 
   constructor() { }
 

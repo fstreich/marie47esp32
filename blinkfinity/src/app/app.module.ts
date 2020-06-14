@@ -9,6 +9,7 @@ import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 import { BASE_PATH } from './swagger/variables';
 import { EditProgramComponent } from './edit-program/edit-program.component';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
+import { EditPatternComponent } from './edit-pattern/edit-pattern.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HomeScreenComponent } from './home-screen/home-screen.component';
     ProgramComponent,
     ThumbnailComponent,
     EditProgramComponent,
-    HomeScreenComponent
+    HomeScreenComponent,
+    EditPatternComponent
   ],
   imports: [
     BrowserModule,

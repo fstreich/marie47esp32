@@ -1,6 +1,8 @@
 <div class="container">
 <p>Edit program</p>
-<select>
-	<option *ngFor="let opt of possiblePatterns" [value]="opt">{{opt}}</option>
-</select>
+<h3>{{name}}</h3>
+
+<div *ngFor="let p of patterns; let i = index">
+{{i+1}}.&nbsp;<app-edit-pattern></app-edit-pattern><br/>
+</div>	
 </div>
