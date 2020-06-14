@@ -24,7 +24,8 @@ class WebServer(tornado.web.Application):
     main_loop = None
     
     def __init__(self):
-        handlers = [ (r"/test", TestHandler),
+        handlers = [ (r"/api/.*", ApiHandler),
+                     (r"/test", TestHandler),
                      (r"/websocket", WebSocket),
                      (r'/(.*)', tornado.web.StaticFileHandler, {'path': 'webstatic', "default_filename": "index.html"}),]
         settings = {'debug': True}
@@ -55,6 +56,30 @@ class TestHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("test success")
         UdpClient.sendto(1,b'\x46\x53\x01\x01\x00') ## type 1, id 1, ping
+
+class ApiHandler(tornado.web.RequestHandler):
+    def get(self):
+        pathparts = self.request.path.split("/")
+        ## results in ['', 'api', 'program', '1'] for /api/program/1
+        if pathparts[2] == 'program':
+            if len(pathparts)==4:
+                self.write(self.getProgramBySlot(int(pathparts[3])))
+        if pathparts[2] == 'endedit':
+            pass
+        
+    def post(self):
+        pathparts = self.request.path.split("/")
+        ## results in ['', 'api', 'program', '1'] for /api/program/1
+        if pathparts[2] == 'program':
+            if len(pathparts)==4:
+                self.write(self.setProgramBySlot(int(pathparts[3]), self.request.body))
+        if pathparts[2] == 'edit':
+            self.write(self.setProgramBySlot(-1, self.request.body))
+        
+    def getProgramBySlot(self, slotId):
+        return '{ "name": "test", "patterns": [ ] }'
+    def setProgramBySlot(self, slotId, programstring):
+        return '{ "name": "test", "patterns": [ ] }'
 
 
 class WebSocket(tornado.websocket.WebSocketHandler):
