@@ -58,16 +58,36 @@ class TestHandler(tornado.web.RequestHandler):
         UdpClient.sendto(1,b'\x46\x53\x01\x01\x00') ## type 1, id 1, ping
 
 class ApiHandler(tornado.web.RequestHandler):
+    
+    editslot = '{ "name": "test", "patterns": [ ] }'
+    programslots = ['{ "name": "test1", "patterns": [ ] }',
+                    '{ "name": "test2", "patterns": [ ] }',
+                    '{ "name": "test3", "patterns": [ ] }',
+                    '{ "name": "test4", "patterns": [ ] }',
+                    '{ "name": "test5", "patterns": [ ] }',
+                    '{ "name": "test6", "patterns": [ ] }',
+                    '{ "name": "test7", "patterns": [ ] }',
+                    '{ "name": "test8", "patterns": [ ] }',
+                    '{ "name": "test9", "patterns": [ ] }']
+    
+    editor_cookie = None
+    editor_last_seen = None
+    
     def get(self):
+        if not self.get_cookie("mycookie"):
+            self.set_cookie("mycookie", str(random.randint(100000, 999999)))
+        self.set_header("Content-Type", 'application/json')
         pathparts = self.request.path.split("/")
         ## results in ['', 'api', 'program', '1'] for /api/program/1
         if pathparts[2] == 'program':
             if len(pathparts)==4:
                 self.write(self.getProgramBySlot(int(pathparts[3])))
         if pathparts[2] == 'endedit':
-            pass
+            if ApiHandler.editor_cookie == self.get_cookie("mycookie"):
+                ApiHandler.editor_cookie = None
         
     def post(self):
+        self.set_header("Content-Type", 'application/json')
         pathparts = self.request.path.split("/")
         ## results in ['', 'api', 'program', '1'] for /api/program/1
         if pathparts[2] == 'program':
@@ -77,9 +97,21 @@ class ApiHandler(tornado.web.RequestHandler):
             self.write(self.setProgramBySlot(-1, self.request.body))
         
     def getProgramBySlot(self, slotId):
-        return '{ "name": "test", "patterns": [ ] }'
+        if slotId>=0 and slotId<len(ApiHandler.programslots):
+            return ApiHandler.programslots[slotId]
+        return ApiHandler.editslot
+        
     def setProgramBySlot(self, slotId, programstring):
-        return '{ "name": "test", "patterns": [ ] }'
+        if not (ApiHandler.editor_cookie is None or ApiHandler.editor_cookie == self.get_cookie("mycookie")):
+            return 'someone else is editing right now!'
+        if slotId>=0 and slotId<len(ApiHandler.programslots):
+            ApiHandler.programslots[slotId] = programstring
+            ApiHandler.editor_cookie = None
+        if slotId==-1:
+            ApiHandler.editslot = programstring
+            ApiHandler.editor_cookie = self.get_cookie("mycookie")
+            ApiHandler.editor_last_seen = datetime.datetime.now()
+        return "ok"
 
 
 class WebSocket(tornado.websocket.WebSocketHandler):
