@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EditPatternComponent } from '../edit-pattern/edit-pattern.component';
 import { Pattern } from '../swagger/model/pattern';
+import { Program } from '../swagger/model/program';
 import { ProgramService } from '../swagger/api/program.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-program',
@@ -12,17 +14,24 @@ export class EditProgramComponent implements OnInit {
 
   name : string = "unnamed program";
 
+  program : Program
+
   patterns : Pattern[] = [
   	{ _class: "stars", speed: 8},
   	{ _class: "stripes", speed: 2},
   	{ _class: "random walk", speed: 2},
   ];
 
-  constructor(private programService: ProgramService) {
+  constructor(private programService: ProgramService,
+  		      private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void { 
-  	let dings = this.programService.programIdGet(1,1) // TODO 
+  	let id = this.activatedRoute.snapshot.params.id;
+  	this.programService.programIdGet( id ).subscribe(
+      this.patterns
+
+    );
   }
 
   cancel_edit() {
