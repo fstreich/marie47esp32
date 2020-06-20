@@ -6,7 +6,7 @@ import { HomeScreenComponent } from './home-screen/home-screen.component'
 
 const routes: Routes = [
   { path: 'home', component: HomeScreenComponent }, // 'home' does not work
-  { path: 'edit-program', component: EditProgramComponent },
+  { path: 'edit-program/:id', component: EditProgramComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // redirect to  the homescreen (not working???)
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];

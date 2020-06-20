@@ -14,7 +14,7 @@ export class EditProgramComponent implements OnInit {
 
   name : string = "unnamed program";
 
-  program : Program
+  program : Program;
 
   patterns : Pattern[] = [
   	{ _class: "stars", speed: 8},
@@ -29,8 +29,7 @@ export class EditProgramComponent implements OnInit {
   ngOnInit(): void { 
   	let id = this.activatedRoute.snapshot.params.id;
   	this.programService.programIdGet( id ).subscribe(
-      this.patterns
-
+      (data) => { this.program = data }
     );
   }
 
