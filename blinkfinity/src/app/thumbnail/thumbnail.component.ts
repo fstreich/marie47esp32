@@ -25,7 +25,7 @@ export class ThumbnailComponent implements AfterViewInit {
 
     this.context = canvas.getContext('2d');
     this.context.font = "100px Arial";
-	this.context.strokeText(""+this.number,40,100);
+	this.context.strokeText(""+this.number,25,85);
   }
 
 }

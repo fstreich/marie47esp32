@@ -21,7 +21,8 @@ export class EditProgramComponent implements OnInit {
   constructor(private programService: ProgramService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+  	let dings = this.programService.programIdGet(1,1) // TODO 
   }
 
   cancel_edit() {

@@ -10,6 +10,8 @@ import { EditProgramComponent } from './edit-program/edit-program.component';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
 import { EditPatternComponent } from './edit-pattern/edit-pattern.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
   	ApiModule,
   	HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {  provide: BASE_PATH, 
