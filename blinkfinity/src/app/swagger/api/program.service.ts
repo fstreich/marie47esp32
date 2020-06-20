@@ -155,9 +155,9 @@ export class ProgramService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public programIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Program>>;
-    public programIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Program>>>;
-    public programIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Program>>>;
+    public programIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<Program>;
+    public programIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Program>>;
+    public programIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Program>>;
     public programIdGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
@@ -184,7 +184,7 @@ export class ProgramService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<Program>>('get',`${this.basePath}/program/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<Program>('get',`${this.basePath}/program/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
