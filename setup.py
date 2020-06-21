@@ -17,6 +17,7 @@ except ImportError:
 
 packages = [
      'marie47esp32',
+     'marie47esp32/patterns',
      'marie47esp32/webserver',
      'marie47esp32/udp',
      'marie47esp32/util',
