@@ -126,7 +126,7 @@ components:
     pattern:
       type: object
       properties:
-        class:
+        pclass:
           type: string
         name:
           type: string
@@ -149,10 +149,41 @@ components:
         color:
           $ref: '#/components/schemas/color'
 
+    stars:
+      allOf:     # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/pattern'
+        - type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/color'
+
+    hstripes:
+      allOf:     # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/pattern'
+        - type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/color'
+ 
+    vstripes:
+      allOf:     # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/pattern'
+        - type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/color'
+        move: 
+          $ref: '#/components/schemas/direction'
+          
+          
+    direction:
+      type: string
+      #enum['fwd','rev','oscillate']
+          
     color:
       type: object
       properties:
-        class:
+        cclass:
           type: string
           
     colorsolid:

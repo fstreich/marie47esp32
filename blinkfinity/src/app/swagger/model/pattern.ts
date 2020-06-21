@@ -12,7 +12,7 @@
 import { Blender } from './blender';
 
 export interface Pattern { 
-    _class?: string;
+    pclass?: string;
     name?: string;
     speed?: number;
     hmirror?: boolean;

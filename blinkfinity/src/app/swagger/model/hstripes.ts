@@ -9,7 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Blender } from './blender';
+import { Color } from './color';
+import { Pattern } from './pattern';
 
-export interface Color { 
-    cclass?: string;
+export interface Hstripes extends Pattern { 
+    color?: Color;
 }

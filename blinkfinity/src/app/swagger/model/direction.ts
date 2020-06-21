@@ -10,6 +10,4 @@
  * Do not edit the class manually.
  */
 
-export interface Color { 
-    cclass?: string;
-}
+export type Direction = string;

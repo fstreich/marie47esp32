@@ -9,7 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Blender } from './blender';
+import { Color } from './color';
+import { Direction } from './direction';
+import { Pattern } from './pattern';
 
-export interface Color { 
-    cclass?: string;
+export interface Vstripes extends Pattern { 
+    color?: Color;
+    move?: Direction;
 }
