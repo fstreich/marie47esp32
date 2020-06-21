@@ -30,7 +30,7 @@ export class EditProgramComponent implements OnInit {
 
   addPattern():void{
     this.program.patterns.push({ 
-        _class: "stars",
+        pclass: "stars",
         name: "stars",
         speed: 5,
         hmirror: false,
