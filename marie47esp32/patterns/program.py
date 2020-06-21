@@ -8,9 +8,9 @@ class Program(object):
         self.name = jsonobject['name']
         self.patterns = []
         for p in jsonobject["patterns"]:
-            if p['class'] == "random_walk":
+            if p['pclass'] == "random walk":
                 self.patterns.append(Random_walk(p))
-            elif p['class'] == "disco":
+            elif p['pclass'] == "disco":
                 self.patterns.append(Random_walk(p))
             else:
                 log.error("program: don't know pattern: "+str(p))

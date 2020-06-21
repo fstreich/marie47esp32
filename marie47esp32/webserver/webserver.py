@@ -60,18 +60,18 @@ class TestHandler(tornado.web.RequestHandler):
 
 class ApiHandler(tornado.web.RequestHandler):
     
-    editslot = Program({"name": "editslot", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]})
+    editslot = Program({"name": "editslot", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]})
 
     programslots = [
-        Program({"name": "slot1", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
-        Program({"name": "slot2", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
-        Program({"name": "slot3", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
-        Program({"name": "slot4", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
-        Program({"name": "slot5", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
-        Program({"name": "slot6", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
-        Program({"name": "slot7", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
-        Program({"name": "slot8", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
-        Program({"name": "slot9", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]})
+        Program({"name": "slot1", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot2", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot3", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot4", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot5", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot6", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot7", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot8", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot9", "patterns": [{"pclass": "random walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]})
     ]
     
     editor_cookie = None

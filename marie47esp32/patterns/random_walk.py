@@ -19,7 +19,7 @@ class Random_walk(object):
         log.debug("pattern: random_walk: all parsed: "+str(self))
         
     def getJSONobj(self):
-        jsonObj = { "class": "random_walk",
+        jsonObj = { "pclass": "random walk",
                     "name": self.name,
                     "speed": self.speed,
                     "hmirror": self.hmirror,
@@ -35,4 +35,4 @@ class Random_walk(object):
         return None
     
     def __str__(self):
-        return '{ class: random_walk, name: '+self.name+'] }'
+        return '{ pclass: random_walk, name: '+self.name+'] }'
