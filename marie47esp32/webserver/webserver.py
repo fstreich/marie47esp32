@@ -60,16 +60,19 @@ class TestHandler(tornado.web.RequestHandler):
 
 class ApiHandler(tornado.web.RequestHandler):
     
-    editslot = '{ "name": "test", "patterns": [ ] }'
-    programslots = ['{ "name": "test1", "patterns": [ ] }',
-                    '{ "name": "test2", "patterns": [ ] }',
-                    '{ "name": "test3", "patterns": [ ] }',
-                    '{ "name": "test4", "patterns": [ ] }',
-                    '{ "name": "test5", "patterns": [ ] }',
-                    '{ "name": "test6", "patterns": [ ] }',
-                    '{ "name": "test7", "patterns": [ ] }',
-                    '{ "name": "test8", "patterns": [ ] }',
-                    '{ "name": "test9", "patterns": [ ] }']
+    editslot = Program({"name": "editslot", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]})
+
+    programslots = [
+        Program({"name": "slot1", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot2", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot3", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot4", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot5", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot6", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot7", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot8", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]}),
+        Program({"name": "slot9", "patterns": [{"class": "random_walk", "name": "string", "speed": 0, "hmirror": True, "vmirror": True, "rotate": 0, "blender": {}, "color": {}}]})
+    ]
     
     editor_cookie = None
     editor_last_seen = None
@@ -99,21 +102,23 @@ class ApiHandler(tornado.web.RequestHandler):
         
     def getProgramBySlot(self, slotId):
         if slotId>=0 and slotId<len(ApiHandler.programslots):
-            return ApiHandler.programslots[slotId]
-        return ApiHandler.editslot
-        
+            program = ApiHandler.programslots[slotId]
+        else:
+            program = ApiHandler.editslot
+        return json.dumps(program.getJSONobj())
+    
     def setProgramBySlot(self, slotId, programstring):
         if not (ApiHandler.editor_cookie is None or ApiHandler.editor_cookie == self.get_cookie("mycookie")):
             return 'someone else is editing right now!'
-        ##jsonobj = json.loads(self.request.body)
-        ##program = Program(jsonobj)
+        jsonobj = json.loads(self.request.body)
+        program = Program(jsonobj)
         ##print(json.dumps(program.getJSONobj()))
         
         if slotId>=0 and slotId<len(ApiHandler.programslots):
-            ApiHandler.programslots[slotId] = programstring
+            ApiHandler.programslots[slotId] = program
             ApiHandler.editor_cookie = None
         if slotId==-1:
-            ApiHandler.editslot = programstring
+            ApiHandler.editslot = program
             ApiHandler.editor_cookie = self.get_cookie("mycookie")
             ApiHandler.editor_last_seen = datetime.datetime.now()
         return "ok"
