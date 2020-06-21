@@ -1,4 +1,36 @@
+<div class="card">
+<div style="margin-left: 100px; margin-top: 10px; margin-bottom: 10px">
+<b>
+Pattern: {{number}}
+</b>
 
-<select>
-	<option *ngFor="let opt of possibleClasses" [value]="opt">{{opt}}</option>
+<button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+</button>
+
+</div>
+<div class="container">
+<select [(ngModel)]="pattern._class">
+	<option *ngFor="let opt of possibleClasses" [ngValue]="opt">{{opt}}</option>
 </select>
+&nbsp;&nbsp;&nbsp;
+speed:
+<select [(ngModel)]="pattern.speed">
+	<option *ngFor="let s of [1,2,3,4,5,6,7,8,9,10]" [ngValue]="s">{{s}}</option>
+</select>
+&nbsp;&nbsp;&nbsp;
+<input type="checkbox" [(ngModel)]="pattern.hmirror"/>Mirror horizontally	
+&nbsp;&nbsp;&nbsp;
+<input type="checkbox" [(ngModel)]="pattern.vmirror"/>Mirror vertically	
+&nbsp;&nbsp;&nbsp;
+Rotation:
+<select [(ngModel)]="pattern.rotate">
+	<option *ngFor="let n of [0,90,180,270]" [ngValue]="n">{{n}}</option>
+</select><br/>
+Blendmode:
+&nbsp;&nbsp;&nbsp;
+<select style="margin-bottom:10px" [(ngModel)]="pattern.blender">
+	<option *ngFor="let b of possibleBlendModes" [ngValue]="b">{{b}}</option>
+</select>
+</div>
+</div>

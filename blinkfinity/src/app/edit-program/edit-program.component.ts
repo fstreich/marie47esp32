@@ -5,6 +5,7 @@ import { Program } from '../swagger/model/program';
 import { ProgramService } from '../swagger/api/program.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-edit-program',
   templateUrl: './edit-program.component.html',
@@ -16,12 +17,6 @@ export class EditProgramComponent implements OnInit {
 
   program : Program;
 
-  patterns : Pattern[] = [
-  	{ _class: "stars", speed: 8},
-  	{ _class: "stripes", speed: 2},
-  	{ _class: "random walk", speed: 2},
-  ];
-
   constructor(private programService: ProgramService,
   		      private activatedRoute: ActivatedRoute) {
   }
@@ -31,6 +26,22 @@ export class EditProgramComponent implements OnInit {
   	this.programService.programIdGet( id ).subscribe(
       (data) => { this.program = data }
     );
+  }
+
+  addPattern():void{
+    this.program.patterns.push({ 
+        _class: "stars",
+        name: "stars",
+        speed: 5,
+        hmirror: false,
+        vmirror: false,
+        rotate: 0,
+        blender: 'add'
+      } );
+  }
+
+  dismiss(index):void {
+    this.program.patterns.splice(index,1);
   }
 
   cancel_edit() {
