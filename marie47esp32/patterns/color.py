@@ -10,4 +10,7 @@ class Color(object):
         return jsonObj
     
     def getUDPbytes(self):
-        return None
+        ## 'C' color
+        ## 00  no blender
+        data = bytearray(b'\x43\x00')
+        return data

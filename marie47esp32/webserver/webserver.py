@@ -16,6 +16,7 @@ import pkg_resources
 from marie47esp32.util.config import Config
 from marie47esp32.util.log import log
 from marie47esp32.udp.udpserver import UdpClient
+from marie47esp32.udp.udpserver import UdpServer
 from marie47esp32.patterns.program import Program
 
 class WebServer(tornado.web.Application):
@@ -117,10 +118,12 @@ class ApiHandler(tornado.web.RequestHandler):
         if slotId>=0 and slotId<len(ApiHandler.programslots):
             ApiHandler.programslots[slotId] = program
             ApiHandler.editor_cookie = None
+            UdpServer.endEditMode()
         if slotId==-1:
             ApiHandler.editslot = program
             ApiHandler.editor_cookie = self.get_cookie("mycookie")
             ApiHandler.editor_last_seen = datetime.datetime.now()
+            UdpServer.setEditMode(program)
         return "ok"
 
 

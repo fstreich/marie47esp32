@@ -10,4 +10,7 @@ class Blender(object):
         return jsonObj
     
     def getUDPbytes(self):
-        return None
+        ## 'B' blender
+        ## 00  no blender
+        data = bytearray(b'\x42\x00')
+        return data

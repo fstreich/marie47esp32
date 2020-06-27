@@ -4,7 +4,8 @@ import datetime
 
 '''
 	UDP paket:
-		0 : 'FS'		- magic number
+		0 : 'F'		- magic number
+		1 : 'S'		- magic number
 		2 :  0x01		- installation type
 		3 : (x)			- installation id
 		4 : (cmd)		- command
@@ -16,7 +17,9 @@ import datetime
 		
 		cmd: 3 - error
 			par: msg
-
+		
+		cmd: 4 - play now
+			par: program
 '''
 from datetime import date, datetime
 
@@ -93,7 +96,15 @@ class UdpServer(object):
 		else:
 			log.debug("udpserver: unknown command: "+str(udpdata[4])+" from: "+str(addr))
 			client.sendto(b'\x46\x53\x00\x03wrong command\n', addr)
- 
- 
- 
+	
+	def setEditMode(program):
+		log.debug('udpserver: setEditMode')
+		data = bytearray(b'\x46\x53\x00\x00\x04')
+		data.extend(program.getUDPbytes())
+		UdpClient.sendto(1, data)
+		pass
+	def endEditMode():
+		log.debug('udpserver: endEditMode')
+		pass
+
  

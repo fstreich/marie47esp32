@@ -32,7 +32,16 @@ class Random_walk(object):
         return jsonObj
     
     def getUDPbytes(self):
-        return None
+        ## 'A': pattern
+        ## 'A': random_walk
+        data = bytearray(b'\x41\x41\x00\x00\x00\x00')
+        data[2] = self.speed
+        data[3] = self.hmirror
+        data[4] = self.vmirror
+        data[5] = self.rotate
+        data.extend(self.blender.getUDPbytes())
+        data.extend(self.color.getUDPbytes())
+        return data
     
     def __str__(self):
         return '{ pclass: random_walk, name: '+self.name+'] }'

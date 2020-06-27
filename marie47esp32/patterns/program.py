@@ -23,7 +23,12 @@ class Program(object):
         return jsonObj
     
     def getUDPbytes(self):
-        return None
+        ## 'P' + len(patterns)
+        data = bytearray(b'\x50\x00')
+        data[1] = len(self.patterns)
+        for p in self.patterns:
+            data.extend(p.getUDPbytes())
+        return data
     
     def __str__(self):
         return '{ name: '+self.name+', patterns: ['+str(len(self.patterns))+'] }'
