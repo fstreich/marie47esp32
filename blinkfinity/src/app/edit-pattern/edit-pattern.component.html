@@ -1,36 +1,52 @@
 <div class="card">
-<div style="margin-left: 100px; margin-top: 10px; margin-bottom: 10px">
-<b>
-Pattern: {{number}}
-</b>
+	<div style="margin-left: 15px; margin-top: 10px; margin-bottom: 10px">
+		<b>
+			Pattern: {{number}}
+		</b>
+		<button type="button" 
+				class="close" 
+				aria-label="Close" 
+				(click)="close()" 
+				style="margin-right: 5px; margin-top: -12px">
+		      <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 
-<button type="button" class="close" aria-label="Close" (click)="close()">
-      <span aria-hidden="true">&times;</span>
-</button>
+	<div class="container">
+		<span style="padding-right:10px" >
+			<select [(ngModel)]="pattern.pclass">
+				<option *ngFor="let opt of possibleClasses" [ngValue]="opt">{{opt}}</option>
+			</select>
+		</span>
+		<span style="padding-right:10px" >
+			speed:
+			<select [(ngModel)]="pattern.speed">
+				<option *ngFor="let s of [0,1,2,3,4,5,6,7,8,9,10]" [ngValue]="s">{{s}}</option>
+			</select>
+		</span>
 
-</div>
-<div class="container">
-<select [(ngModel)]="pattern.pclass">
-	<option *ngFor="let opt of possibleClasses" [ngValue]="opt">{{opt}}</option>
-</select>
-&nbsp;&nbsp;&nbsp;
-speed:
-<select [(ngModel)]="pattern.speed">
-	<option *ngFor="let s of [1,2,3,4,5,6,7,8,9,10]" [ngValue]="s">{{s}}</option>
-</select>
-&nbsp;&nbsp;&nbsp;
-<input type="checkbox" [(ngModel)]="pattern.hmirror"/>Mirror horizontally	
-&nbsp;&nbsp;&nbsp;
-<input type="checkbox" [(ngModel)]="pattern.vmirror"/>Mirror vertically	
-&nbsp;&nbsp;&nbsp;
-Rotation:
-<select [(ngModel)]="pattern.rotate">
-	<option *ngFor="let n of [0,90,180,270]" [ngValue]="n">{{n}}</option>
-</select><br/>
-Blendmode:
-&nbsp;&nbsp;&nbsp;
-<select style="margin-bottom:10px" [(ngModel)]="pattern.blender">
-	<option *ngFor="let b of possibleBlendModes" [ngValue]="b">{{b}}</option>
-</select>
-</div>
+		<span style="padding:10px" >
+			<input type="checkbox" style="margin-top:20px" id="hmirror" [(ngModel)]="pattern.hmirror"/>
+			&nbsp; 
+			<label for="hmirror">Mirror horizontally</label>
+		</span>
+
+		<span style="padding:10px" >
+			<input type="checkbox" style="margin-top:20px" id="vmirror" [(ngModel)]="pattern.vmirror"/>
+			&nbsp; 
+			<label for="vmirror">Mirror vertically</label>
+		</span>
+
+		Rotation:
+		<select [(ngModel)]="pattern.rotate" style="margin-top:20px">
+			<option *ngFor="let n of [0,90,180,270]" [ngValue]="n">{{n}}</option>
+		</select>
+
+		Blendmode:
+		&nbsp;&nbsp;&nbsp;
+		<select style="margin-bottom:10px; margin-top:20px" [(ngModel)]="pattern.blender">
+			<option *ngFor="let b of possibleBlendModes" [ngValue]="b">{{b}}</option>
+		</select>
+
+	</div>
 </div>
