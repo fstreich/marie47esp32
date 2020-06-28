@@ -13,38 +13,39 @@
 	</div>
 
 	<div class="container">
-		<span style="padding-right:10px" >
+		<span style="padding-right:10px; white-space:nowrap;" >
 			<select [(ngModel)]="pattern.pclass">
 				<option *ngFor="let opt of possibleClasses" [ngValue]="opt">{{opt}}</option>
 			</select>
 		</span>
-		<span style="padding-right:10px" >
+
+		<span style="padding-right:10px;" >
 			speed:
 			<select [(ngModel)]="pattern.speed">
 				<option *ngFor="let s of [0,1,2,3,4,5,6,7,8,9,10]" [ngValue]="s">{{s}}</option>
 			</select>
 		</span>
 
-		<span style="padding:10px" >
+		<span style="padding:10px; white-space:nowrap;" >
 			<input type="checkbox" style="margin-top:20px" id="hmirror" [(ngModel)]="pattern.hmirror"/>
 			&nbsp; 
 			<label for="hmirror">Mirror horizontally</label>
 		</span>
 
-		<span style="padding:10px" >
+		<span style="padding:10px; white-space:nowrap;" >
 			<input type="checkbox" style="margin-top:20px" id="vmirror" [(ngModel)]="pattern.vmirror"/>
 			&nbsp; 
 			<label for="vmirror">Mirror vertically</label>
 		</span>
 
 		Rotation:
-		<select [(ngModel)]="pattern.rotate" style="margin-top:20px">
+		<select [(ngModel)]="pattern.rotate" style="margin-top:20px; white-space:nowrap;">
 			<option *ngFor="let n of [0,90,180,270]" [ngValue]="n">{{n}}</option>
 		</select>
 
 		Blendmode:
 		&nbsp;&nbsp;&nbsp;
-		<select style="margin-bottom:10px; margin-top:20px" [(ngModel)]="pattern.blender">
+		<select style="margin-bottom:10px; margin-top:20px; white-space:nowrap;" [(ngModel)]="pattern.blender">
 			<option *ngFor="let b of possibleBlendModes" [ngValue]="b">{{b}}</option>
 		</select>
 

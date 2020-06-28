@@ -13,17 +13,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class EditProgramComponent implements OnInit {
 
-  name : string = "unnamed program";
-
   program : Program;
+  id      : number; 
 
   constructor(private programService: ProgramService,
-  		      private activatedRoute: ActivatedRoute) {
+  		        private activatedRoute: ActivatedRoute,
+              private router: Router ) {
   }
 
   ngOnInit(): void { 
-  	let id = this.activatedRoute.snapshot.params.id;
-  	this.programService.programIdGet( id ).subscribe(
+  	this.id = this.activatedRoute.snapshot.params.id-1;
+  	this.programService.programIdGet( this.id ).subscribe(
       (data) => { this.program = data }
     );
   }
@@ -47,5 +47,14 @@ export class EditProgramComponent implements OnInit {
   cancel_edit() {
   	console.log("cancel edit button pressed...");
   	this.programService.endeditGet().subscribe();
+  }
+
+  saveProgram(){
+    this.programService.programIdPost( this.program, this.id ).subscribe(
+      () => { this.router.navigate(["home"]); },
+      () => { this.router.navigate(["home"]); }
+    );
+      
+   
   }
 }

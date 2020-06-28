@@ -1,5 +1,4 @@
 <div class="container">
-<p>Edit program</p>
 <h3>{{program?.name}}</h3>
 
 <div *ngFor="let pattern of program?.patterns; let i = index" style="margin-bottom : 20px">
@@ -24,6 +23,7 @@
 	<div class="col-2">
 		<div style="margin-top: -2">
 			<svg 
+				(click)="saveProgram()"
 				class="bi bi-cloud-upload" 
 				width="2em" 
 				height="2em" 
