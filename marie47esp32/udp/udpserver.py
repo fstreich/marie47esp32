@@ -34,7 +34,12 @@ class UdpClient(object):
 		self.lastseen = datetime.now()
 		
 	def sendto(self, msg):
+		log.debug("udpclient: send to client: "+str(self.addr)+" msg: "+str(msg))
 		UdpServer.sock.sendto(msg, self.addr)
+		
+	## to set client from config
+	def update_client_from_string(addrstring, type, id):
+		UdpClient.update_client(socket.inet_aton(addr), type, id)
 		
 	def update_client(addr, type, id):
 		client = None
@@ -42,19 +47,22 @@ class UdpClient(object):
 		for c in UdpClient.clients:
 			if c.type == type and c.id == id:
 				client = c
-				if c.addr is not addr:
+				if c.addr[0]!=addr[0] and c.addr[1]!=addr[1]:
+					log.debug("UdpClient: ip of client changed: old: "+str(c.addr)+" new: "+str(addr))
 					c.addr = addr
-					debug.log("UdpClient: ip of client changed")
+					log.debug("UdpClient: ip of client changed")
+				else:
+					log.debug("UdpClient: client already known...: "+str(c.addr))
 				break
 		## new client
 		if client is None:
 			client = UdpClient(addr, type, id)
 			UdpClient.clients.append(client)
-			log.debug("UdpClient: new client! clients: "+len(UdpClient.clients))
+			log.debug("UdpClient: new client: "+str(addr)+" clients: "+str(len(UdpClient.clients)))
 		client.lastseen = datetime.now()
 		return client
 		
-	def sendto(id, data):
+	def sendto_clients(id, data):
 		client = None
 		for c in UdpClient.clients:
 			if c.id == id:
@@ -84,7 +92,7 @@ class UdpServer(object):
 			client.sendto(b'\x46\x53\x00\x03unknown installation\n')
 			return
 		
-		log.debug('udpserver: received: '+str(udpdata)+" from: "+str(addr))
+		log.debug('udpserver: received: '+str(udpdata)+" from: "+str(client.addr))
 		
 		# ping
 		if udpdata[4] == 0:

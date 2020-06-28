@@ -52,7 +52,6 @@ def main():
     
     UdpServer.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
     UdpServer.sock.bind(('', UDP_PORT)) # specify UDP_IP or INADDR_ANY
-    MESSAGE = b"Hello, World!"
     
     while(True):
         try:
