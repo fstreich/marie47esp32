@@ -109,7 +109,7 @@ class UdpServer(object):
 		log.debug('udpserver: setEditMode')
 		data = bytearray(b'\x46\x53\x00\x00\x04')
 		data.extend(program.getUDPbytes())
-		UdpClient.sendto(1, data)
+		UdpClient.sendto_clients(1, data)
 		pass
 	def endEditMode():
 		log.debug('udpserver: endEditMode')
