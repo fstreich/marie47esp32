@@ -20,7 +20,8 @@ def main():
     data[3] = my_id
     sock.sendto(data, (testserver_ip, testserver_port ))
     
-    udpdata, addr = sock.recvfrom(4096) # buffer size is 1024 bytes
-    print("received: "+str(len(udpdata))+" bytes: "+str(udpdata)+" from: "+str(addr))
+    while True:
+        udpdata, addr = sock.recvfrom(4096) # buffer size is 1024 bytes
+        print("received: "+str(len(udpdata))+" bytes: "+str(udpdata)+" from: "+str(addr))
     
 main()
