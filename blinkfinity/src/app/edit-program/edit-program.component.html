@@ -1,11 +1,18 @@
 <div class="container">
-<h3>{{program?.name}}</h3>
+	<div class="row">
+		<div class="col-5">
+		</div>
+		<div class="col-7">
+			<h3>{{program?.name}}</h3>
+		</div>
+	</div>
 
-<div *ngFor="let pattern of program?.patterns; let i = index" style="margin-bottom : 20px">
+<div *ngFor="let pattern of program?.patterns; let i = index" style="margin-bottom : 10px">
 	<app-edit-pattern 
 		[pattern]="pattern" 
 		[number]="i+1" 
-		(dismiss)="dismiss(i)">
+		(dismiss)="dismiss(i)"
+		(change)="change()">
 	</app-edit-pattern><br/>
 </div>	
 

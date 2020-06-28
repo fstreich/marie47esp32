@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Pattern } from '../swagger/model/pattern';
+import { ProgramService } from '../swagger/api/program.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -9,9 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./edit-pattern.component.css']
 })
 
-export class EditPatternComponent implements OnInit {
+export class EditPatternComponent implements OnInit, OnChanges {
 
   @Output() dismiss = new EventEmitter <boolean>();
+  @Output() changed = new EventEmitter <boolean>();
   @Input() pattern : Pattern ;
   @Input() number : number ;
   
@@ -21,13 +23,20 @@ export class EditPatternComponent implements OnInit {
 
   possibleBlendModes : string[] = ['add', 'overlay'];
 
-  constructor(  ) { }
+  constructor( private programService: ProgramService ) { }
 
   ngOnInit(): void {
   }
 
   close(): void{
   	this.dismiss.emit(true);
+  }
+
+  onChange(): void{
+  	this.programService.editPost( this.program ).subscribe(
+      () => {}, // success: do nothing, 
+      () => {}  // error: do nothing as well
+    );
   }
 
 }

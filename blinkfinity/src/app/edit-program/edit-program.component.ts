@@ -28,6 +28,8 @@ export class EditProgramComponent implements OnInit {
     );
   }
 
+
+
   addPattern():void{
     this.program.patterns.push({ 
         pclass: "stars",
@@ -38,23 +40,39 @@ export class EditProgramComponent implements OnInit {
         rotate: 0,
         blender: 'add'
       } );
+    this.programService.editPost( this.program ).subscribe(
+      () => {}, // success: do nothing, 
+      () => {}  // error: do nothing as well
+    );
   }
+
+
+  change(){
+    this.programService.editPost( this.program ).subscribe(
+      () => {},
+      () => {}
+    );
+  }
+
+
 
   dismiss(index):void {
     this.program.patterns.splice(index,1);
   }
+
+
 
   cancel_edit() {
   	console.log("cancel edit button pressed...");
   	this.programService.endeditGet().subscribe();
   }
 
+
+
   saveProgram(){
     this.programService.programIdPost( this.program, this.id ).subscribe(
       () => { this.router.navigate(["home"]); },
       () => { this.router.navigate(["home"]); }
     );
-      
-   
   }
 }
