@@ -58,6 +58,7 @@ export class EditProgramComponent implements OnInit {
 
   dismiss(index):void {
     this.program.patterns.splice(index,1);
+    this.change();
   }
 
 
